@@ -3,13 +3,14 @@ import "./Fooditem.css"
 import { assets } from '../../assets/assets'
 import { storecontext } from '../../conetext/Storecontex'
 const Fooditem = ({id,name,price,description,image}) => {
+  const backendurl="http://localhost:4000";
 
   const { cartitems, addtocart, removefromcart } = useContext(storecontext);
 
   return (
     <div className='food-item'>
         <div className='food-item-img-container'>
-            <img src={image} className='food-item-image' alt="" />
+            <img src={backendurl+"/images/"+image} className='food-item-image' alt="" />
             {
               !cartitems[id] ? 
               <img className='add' onClick={()=>addtocart(id)} src={assets.add_icon_white} alt=''/>:
