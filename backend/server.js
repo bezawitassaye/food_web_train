@@ -3,6 +3,7 @@ import cors from "cors";
 import   "dotenv/config"; // Add this line
 import connectdb from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
+import userrouter from "./routes/userroutes.js";
 
 // Add this line
 
@@ -17,6 +18,7 @@ connectdb();
 
 app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
+app.use("/api/user",userrouter)
 
 
 
