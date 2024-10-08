@@ -5,6 +5,7 @@ import connectdb from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
 import userrouter from "./routes/userroutes.js";
 import cartroutes from "./routes/cartroutes.js";
+import orderroutes from "./routes/orderroutes.js";
 
 // Add this line
 
@@ -21,6 +22,7 @@ app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
 app.use("/api/user",userrouter)
 app.use ("/api/cart",cartroutes)
+app.use("/api/order",orderroutes)
 
 
 
