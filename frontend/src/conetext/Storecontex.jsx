@@ -19,13 +19,24 @@ const Storecontextprovider = (props)=>{
     const removefromcart = (itemId)=>{
         setcartitems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
     }
-
+   
+    const gettotalcartamount = ()=>{
+        let toalamount =0
+        for(const item in cartitems){
+            if(cartitems[item]>0){
+                let itemInfo = food_list.find((product)=>product._id===item)
+                toalamount += itemInfo.price * cartitems[item]
+            }
+        }
+        return toalamount
+    }
     const contextValue={
         food_list,
         cartitems,
         setcartitems,
         addtocart,
-        removefromcart
+        removefromcart,
+        gettotalcartamount
     }
 
     return(
