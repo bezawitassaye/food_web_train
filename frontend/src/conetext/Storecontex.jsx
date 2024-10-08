@@ -23,8 +23,11 @@ const Storecontextprovider = (props)=>{
         }
     }
 
-    const removefromcart = (itemId)=>{
+    const removefromcart = async (itemId)=>{
         setcartitems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
+        if(token){
+            await axios.post(backendurl+"/api/cart/remove",{itemId},{headers:{token}})
+        }
     }
    
     const gettotalcartamount = ()=>{
