@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Add.css"
 import axios from "axios"
 import { assets } from '../../assets/assets'
+import { toast } from 'react-toastify'
 const Add = () => {
   const backendurl="http://localhost:4000"
   const [image,setimage] = useState(false)
@@ -9,7 +10,7 @@ const Add = () => {
     name:"",
     description:"",
     price:"20",
-    category:"salad"
+    category:"Salad"
   })
 
   const onChangeHandler = (e)=>{
@@ -28,6 +29,20 @@ const Add = () => {
     formDta.append("image",image)
     const response = await axios.post(backendurl + "/api/food/add",formDta)
     console.log(response)
+    if(response.data.success){
+      setdata({
+        name:"",
+        description:"",
+        price:"22",
+        category:"Salad"
+      })
+      setimage(false)
+     
+      toast.success(response.data.message)
+    }
+    else{
+      toast.error(response.data.message)
+    }
   }
   useEffect(()=>{
     console.log(data)
