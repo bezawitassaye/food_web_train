@@ -2,15 +2,20 @@ import express from "express";
 import cors from "cors";
 import   "dotenv/config"; // Add this line
 import connectdb from "./config/db.js";
+import foodRouter from "./routes/foodRoutes.js";
 
 // Add this line
 
 const app = express();
 const port = 4000;
-connectdb();
+
 
 app.use(express.json());
 app.use(cors());
+
+connectdb();
+
+app.use("/api/food",foodRouter)
 
 
 
