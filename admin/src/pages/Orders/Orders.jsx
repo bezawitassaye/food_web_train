@@ -26,7 +26,12 @@ const Orders = () => {
   useEffect(() => {
     fetchallorders();
   }, []);
-
+  const statusupdated= async(e,orderId)=>{
+    const response = await axios.post(backendurl+"/api/order/update",{orderId,status:e.target.value})
+    if(response.data.success){
+      await fetchallorders()
+    }
+  }
   console.log(orders);
 
   return (
@@ -61,7 +66,7 @@ const Orders = () => {
                 </div>
                 <p>Items:{order.items.length}</p>
                 <p>${order.amount}</p>
-                <select  >
+                <select  onChange={(e)=>statusupdated(e,order._id)} value={order.status} >
                   <option value="Food Processing">Food Processing</option>
                   <option value="Out for delivery">Out for delivery</option>
                   <option value="Delivered">Delivered</option>
