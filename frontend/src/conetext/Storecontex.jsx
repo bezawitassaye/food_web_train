@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import {food_list} from "../assets/assets"
+
 import axios from "axios";
 
 export const storecontext = createContext(null)
@@ -47,6 +47,7 @@ const Storecontextprovider = (props)=>{
 
    const loadCarddata = async(token)=>{
     const response = await axios.post(backendurl+"/api/cart/get",{},{headers:{token}})
+   
     setcartitems(response.data.cartData)
 
    }
@@ -60,7 +61,7 @@ const Storecontextprovider = (props)=>{
             }
         } 
         loaddata()
-    })
+    },[])
     const contextValue={
         food_list,
         cartitems,

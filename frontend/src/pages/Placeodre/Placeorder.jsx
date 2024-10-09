@@ -24,39 +24,46 @@ const Placeorder = () => {
     setdata(data=>({...data,[name]:value}))
   }
 
-  const placeorder = async(e)=>{
+  const placeorder = async (e) => {
     e.preventDefault();
-    let orderitems =[]
-    food_list.map((item)=>{
-      if(cartitems[item._id]>0){
-        let itemInfo = item 
-        itemInfo["quantity"] = cartitems[item._id]
-        orderitems.push(itemInfo)
-      }
-    })
-    console.log(orderitems)
-    let orderdata ={
-      address:data,
-      items:orderitems,
-      amount:gettotalcartamount()+2
+    let orderitems = [];
+    food_list.map((item) => {
+        if (cartitems[item._id] > 0) {
+            let itemInfo = item;
+            itemInfo["quantity"] = cartitems[item._id];
+            orderitems.push(itemInfo);
+        }
+    });
+
+    let orderdata = {
+        address: data,
+        items: orderitems,
+        amount: gettotalcartamount() + 2,
+    };
+
+    let response = await axios.post(backendurl + "/api/order/place", orderdata, {
+        headers: { token },
+    });
+
+    console.log(response.data.session_url); // Fixed spelling here
+
+    if (response.data.success) {
+        const { session_url } = response.data; // Fixed spelling here
+        window.location.replace(session_url);
+    } else {
+        alert("Error");
     }
-    let response = await axios.post(backendurl+"/api/order/place",orderdata,{headers:{token}})
-    if(response.data.success){
-      const {seeion_url}=response.data
-      window.location.replace(seeion_url)
-    }else{
-      alert("Error")
-    }
-  }
+};
+
 
  
 
   useEffect(()=>{
-    console.log(data)
+    
 
   },[data])
   return (
-    <form action="" className="place-order">
+    <form onSubmit={placeorder} action="" className="place-order">
       <div className="place-order-left">
         <p className="title">
           Delivery Information
