@@ -10,7 +10,7 @@ const Orders = () => {
 
   const fetchallorders = async () => {
     try {
-      const response = await axios.post(backendurl + "/api/order/listoredrs");
+      const response = await axios.get(backendurl + "/api/order/listoredrs");
       console.log(response);
       if (response.data.success) {
         setorders(response.data.data);
@@ -50,8 +50,22 @@ const Orders = () => {
                       })
                     }
                   </p>
+                  <p className='order-item-name'>{order.address.firstname + " " + order.address.lastname}</p>
+                  <div className="order-item-address">
+                    <p>{order.address.street + ","}</p>
+                    <p>{order.address.city + "," + order.address.state + "," + order.address.country + "," + order.address.zipcode}</p>
+
+                  </div>
+                  <p className='order-item-phone'>{order.address.phone}</p>
                   
                 </div>
+                <p>Items:{order.items.length}</p>
+                <p>${order.amount}</p>
+                <select  >
+                  <option value="Food Processing">Food Processing</option>
+                  <option value="Out for delivery">Out for delivery</option>
+                  <option value="Delivered">Delivered</option>
+                </select>
               </div>
             );
           })

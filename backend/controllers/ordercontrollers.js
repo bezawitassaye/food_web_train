@@ -10,7 +10,7 @@ const placeorder = async(req,res)=>{
             userId:req.body.userId,
             items:req.body.items,
             amount:req.body.amount,
-            address:req.body.amount
+            address:req.body.address
         })
         await neworder.save()
         await usermodel.findByIdAndUpdate(req.body.userId,{cartData:{}})
@@ -96,5 +96,13 @@ const listorders = async(req,res)=>{
         
     }
 }
-
-export {placeorder,verify,userorders,listorders}
+const updatestatus = async(req,res)=>{
+    try {
+        await ordermodel.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+        res.json({success:true,message:"Status Updated"})
+    } catch (error) {
+        console.log(error)
+        res.json({success:false,message:"Error"})
+    }
+}
+export {placeorder,verify,userorders,listorders,updatestatus}
