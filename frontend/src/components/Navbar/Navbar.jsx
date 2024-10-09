@@ -42,7 +42,7 @@ const Navbar = ({setchowLogin}) => {
             : <div className="navbar-profile">
                 <img src={assets.profile_icon} alt="" />
                 <ul className='navbar-profile-dropdown'>
-                    <img src={ assets.bag_icon} alt="" />
+                    <img onClick={()=>navigate("/myorders")} src={ assets.bag_icon} alt="" />
                     <p>Orders</p>
                     <hr />
                     <li>
